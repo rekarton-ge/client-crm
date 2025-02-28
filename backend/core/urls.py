@@ -8,29 +8,30 @@ from drf_yasg import openapi
 
 # Настройка Swagger документации API
 schema_view = get_schema_view(
-   openapi.Info(
-      title="CRM API",
-      default_version='v1',
-      description="API для клиентской CRM-системы с возможностью рассылки сообщений",
-      contact=openapi.Contact(email="admin@example.com"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+    openapi.Info(
+        title="CRM API",
+        default_version='v1',
+        description="API для клиентской CRM-системы с возможностью рассылки сообщений",
+        contact=openapi.Contact(email="admin@example.com"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
+    # Административная панель
     path('admin/', admin.site.urls),
-    
-    # API документация
+
+    # Swagger документация
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    
+
     # API endpoints
-    # path('api/clients/', include('clients.urls')),
-    # path('api/messaging/', include('messaging.urls')),
-    # path('api/templates/', include('templates.urls')),
-    # path('api/campaigns/', include('campaigns.urls')),
-    # path('api/analytics/', include('analytics.urls')),
+    path('api/clients/', include('clients.urls')),
+    path('api/messaging/', include('messaging.urls')),
+    path('api/campaigns/', include('campaigns.urls')),
+    path('api/templates/', include('templates.urls')),
+    path('api/analytics/', include('analytics.urls')),
 ]
 
 # Добавляем URL маршруты для обработки медиа-файлов в режиме разработки
